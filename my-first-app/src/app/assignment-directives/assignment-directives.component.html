@@ -1,0 +1,13 @@
+<h2>Assignment Directives</h2>
+
+<button class="btn btn-primary" (click)="onButtonClick()">Display Details</button>
+<p *ngIf="isDipalay">
+  assignment-directives
+</p>
+
+<p *ngFor="let data of details; let i=index"
+[ngStyle]="{backgroundColor: i >= 4? 'blue': 'transparent'}"
+[ngClass]="{'white-text-color':i >=4}"
+
+>{{data}}</p>
+
