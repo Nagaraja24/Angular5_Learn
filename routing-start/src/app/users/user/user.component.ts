@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy{
   user: {id: number, name: string};
+  paramSubscription: Subscription
 
   constructor(private activeRoute: ActivatedRoute) { }
 
@@ -18,14 +20,21 @@ export class UserComponent implements OnInit {
     };
 
     //Below code refresh the page when new router parameters are send
-    this.activeRoute.params.
+    this.paramSubscription =  this.activeRoute.params.
     subscribe(
-      (params)=>{
+      (params: Params)=>{
         this.user.id = params['id'];
         this.user.name = params['name'];
       }
     );
 
+  }
+
+  ngOnDestroy(){
+    // Angular does it for us, no need to add the below line
+    //If we create our own subscription, we need to perform below action
+    this.paramSubscription.unsubscribe();
+    console.log("params unsubscribed");
   }
 
 }
