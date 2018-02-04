@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -8,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 export class UserComponent implements OnInit {
   user: {id: number, name: string};
 
-  constructor() { }
+  constructor(private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.user = {
+    id: this.activeRoute.snapshot.params['id'],
+    name: this.activeRoute.snapshot.params['name']
+    };
+
+    //Below code refresh the page when new router parameters are send
+    this.activeRoute.params.
+    subscribe(
+      (params)=>{
+        this.user.id = params['id'];
+        this.user.name = params['name'];
+      }
+    );
+
   }
 
 }

@@ -15,4 +15,10 @@ export class ServersComponent implements OnInit {
     this.servers = this.serversService.getServers();
   }
 
+  onReload(){
+    // relativeTo --> will consider the current active route and look for -->servers/servers
+   // this.router.navigate(['servers'], {relativeTo : this.activatedRoute});
+
+  }
+
 }
