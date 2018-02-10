@@ -9,12 +9,24 @@ import { Router, ActivatedRoute} from '@angular/router'
 })
 export class ServerComponent implements OnInit {
   server: {id: number, name: string, status: string};
-
+  serverId: number;
   constructor(private serversService: ServersService, private router: Router,
   private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.server = this.serversService.getServer(1);
+    // + to convert string to number
+    const id = +this.activatedRoute.snapshot.params['id'];
+    this.server = this.serversService.getServer(id);
+    this.activatedRoute.params.subscribe(
+      (params)=>{
+        this.server = this.serversService.getServer(+params['id']);
+      }
+    )
+    
+  }
+
+  onEdit(){
+    this.router.navigate(['edit'], {relativeTo: this.activatedRoute});
   }
 
  }
