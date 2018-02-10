@@ -26,7 +26,9 @@ export class ServerComponent implements OnInit {
   }
 
   onEdit(){
-    this.router.navigate(['edit'], {relativeTo: this.activatedRoute});
+    //queryParamsHandling: 'preserve' this will keep the old query params in the url when you navigate
+    //queryParamsHandling: 'merge' this will override with new one query params in the url when you navigate
+    this.router.navigate(['edit'], {relativeTo: this.activatedRoute, queryParamsHandling: 'preserve'});
   }
 
  }
